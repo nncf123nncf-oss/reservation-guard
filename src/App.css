@@ -1,0 +1,1083 @@
+/*
+  余白は 4 / 8 / 12 / 16 / 24 / 40px の6つだけを使う。
+  中間の値を足し始めると、揃っているのか揃っていないのか誰にも分からなくなる。
+  40pxで足りないと感じたら、数値を増やさずに線を1本引いて区切る。
+*/
+
+.shell {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 40px 16px 64px;
+}
+
+@media (min-width: 768px) {
+  .shell {
+    padding: 40px 24px 72px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .shell {
+    max-width: 1200px;
+    padding: 40px 40px 80px;
+  }
+}
+
+/* ---------------- 画面上部 ---------------- */
+
+.masthead {
+  padding-bottom: 24px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 40px;
+}
+
+.wordmark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  line-height: 1.2;
+  color: var(--primary);
+}
+
+.masthead h1 {
+  margin: 0 0 12px;
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.4;
+  letter-spacing: 0.01em;
+  max-width: 20em;
+}
+
+.lead {
+  margin: 0 0 24px;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  line-height: 1.8;
+  max-width: 34em;
+}
+
+@media (min-width: 768px) {
+  .masthead h1 {
+    font-size: 2rem;
+  }
+
+  .lead {
+    font-size: 1rem;
+  }
+}
+
+/*
+  今日の件数と重なりの件数。カードにはせず、1本の縦罫で仕切るだけにする。
+  枠を付けると、下に続く警告ブロックと箱が二重になって視線が散る。
+*/
+.stats {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+
+.stat-div {
+  width: 1px;
+  height: 44px;
+  background: var(--line);
+  flex: none;
+  margin-top: 8px;
+}
+
+.stat-label {
+  margin: 0 0 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+.stat-value {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.stat-value svg {
+  align-self: center;
+  flex: none;
+}
+
+.stat-unit {
+  font-size: 0.9375rem;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.stat-note {
+  margin: 4px 0 0;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  line-height: 1.5;
+}
+
+/* 重なりが出ているときだけ、この一区画を赤にする。地は塗らない（下の警告と二重に赤くなる） */
+.stat.is-alert,
+.stat.is-alert .stat-label,
+.stat.is-alert .stat-note,
+.stat.is-alert .stat-unit {
+  color: var(--alert);
+}
+
+/* ---------------- 画面上部の帯 ---------------- */
+
+.bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 24px;
+  padding: 14px 16px;
+  border-radius: 6px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.6;
+}
+
+.bar svg {
+  flex: none;
+}
+
+.bar.is-alert {
+  background: var(--alert);
+  color: #ffffff;
+}
+
+.bar.is-ok {
+  background: var(--ok-wash);
+  border: 1px solid var(--ok-line);
+  color: var(--ok);
+}
+
+/*
+  読み取れなかった予約の知らせ。
+  上部の赤い帯とは役割が違う（帯＝いま入力中の重なり / ここ＝台帳側の壊れ）ので、
+  同じ真っ赤にはせず、淡い地に赤い縦罫という一段弱い見た目にする。
+*/
+.damaged {
+  margin: 0 0 24px;
+  padding: 16px;
+  background: var(--alert-wash);
+  border: 1px solid var(--alert-line);
+  border-left: 3px solid var(--alert);
+  border-radius: 0 6px 6px 0;
+}
+
+.damaged-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--alert);
+  line-height: 1.6;
+}
+
+.damaged-head svg {
+  flex: none;
+}
+
+.damaged-note {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.damaged-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.damaged-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  padding: 8px 12px;
+  background: #ffffff;
+  border: 1px solid var(--alert-line);
+  border-radius: 4px;
+}
+
+.damaged-name {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.damaged-service {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+/* 読めない値をそのまま出す。何が入っていたかが分からないと直しようがない */
+.damaged-time {
+  font-size: 0.8125rem;
+  color: var(--alert);
+  overflow-wrap: anywhere;
+}
+
+/* ---------------- 2カラム ---------------- */
+
+.cols {
+  display: grid;
+  gap: 40px;
+}
+
+@media (min-width: 1024px) {
+  .cols {
+    grid-template-columns: 440px minmax(0, 1fr);
+    column-gap: 40px;
+    align-items: start;
+  }
+
+  /*
+    どちらの列にも内部スクロールを付けない。
+    入力側を画面に留める案は試したが、帯＋5項目＋警告で列の高さが画面を超えるため、
+    追従させると常に内側のスクロールバーが出て、ページのスクロールと二重になる。
+    「どちらを回しているのか分からない」画面より、素直に全体が動く方が迷わない。
+  */
+}
+
+.col-head {
+  margin: 0 0 16px;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+/* ---------------- 入力 ---------------- */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  /* flexの子は既定で中身の幅まで縮まない。長いメモを入れると横スクロールが生まれる */
+  min-width: 0;
+}
+
+.field label {
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  line-height: 1.5;
+}
+
+.opt {
+  margin-left: 8px;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.field input,
+.field textarea {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--line-input);
+  border-radius: 6px;
+  background: #ffffff;
+  line-height: 1.5;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 72px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  /* 枠の太さを変えると1pxぶん行がずれる。影を重ねて太く見せる */
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+.field input[aria-invalid='true'],
+.field textarea[aria-invalid='true'] {
+  border-color: var(--alert);
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: var(--ink-3);
+}
+
+.err {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: var(--alert);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  line-height: 1.6;
+}
+
+.err svg {
+  flex: none;
+}
+
+/* 入れた時間帯の読み返し */
+.echo {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--primary-wash);
+  border-left: 3px solid var(--primary);
+  border-radius: 0 6px 6px 0;
+}
+
+.echo-range {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--primary);
+}
+
+.echo-dur {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.echo-flag {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--caution);
+}
+
+/* ---------------- ボタン ---------------- */
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.btn-main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 52px;
+  border-radius: 6px;
+  background: var(--primary);
+  color: #ffffff;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+}
+
+.btn-main:hover {
+  background: var(--primary-hover);
+}
+
+.btn-main:active {
+  background: var(--primary-active);
+}
+
+/*
+  重なっているときは灰色に落とさない。
+  灰色は「壊れている」に見えて、押せない理由が伝わらない。
+  赤い枠と文言のまま押せなくして、理由をボタン自身に語らせる。
+*/
+.btn-main[aria-disabled='true'],
+.btn-main[aria-disabled='true']:hover,
+.btn-main[aria-disabled='true']:active {
+  background: #ffffff;
+  border: 2px solid var(--alert);
+  color: var(--alert);
+  cursor: not-allowed;
+}
+
+.btn-main.is-blocked:focus-visible {
+  outline-color: var(--ink);
+}
+
+.btn-sub {
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line-input);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--primary);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.btn-sub:hover {
+  background: var(--surface-2);
+}
+
+/* ---------------- 時間の帯 ---------------- */
+
+.tl {
+  margin: 0;
+}
+
+.tl-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.tl-date {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.tl-day {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.tl-wd {
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.tl-rel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-wash);
+  border: 1px solid var(--primary-line);
+  border-radius: 4px;
+  padding: 0 8px;
+}
+
+.tl-count {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.tl-track {
+  position: relative;
+  height: 60px;
+  background: var(--surface-2);
+  border-radius: 4px;
+  /* 帯からはみ出した予約を切り落とす */
+  overflow: hidden;
+}
+
+@media (min-width: 768px) {
+  .tl-track {
+    height: 68px;
+  }
+}
+
+.tl-tick {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--tl-tick);
+}
+
+.tl-tick.is-major {
+  background: var(--tl-tick-major);
+}
+
+/* 上段＝もう受けてある予約、下段＝いま入れようとしている時間帯 */
+.tl-lanes {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.tl-lane {
+  position: relative;
+  flex: 1;
+}
+
+.tl-booked {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: var(--tl-booked);
+  border-radius: 2px;
+  /* 15分の予約でも消えないようにする */
+  min-width: 4px;
+  /*
+    右端に地の色を1本入れる。連続した予約（10-11と11-12）は座標が接するので、
+    これが無いと1件の長い予約と見分けがつかない
+  */
+  box-shadow: 1px 0 0 0 var(--surface-2);
+}
+
+.tl-cand {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: #ffffff;
+  border: 2px solid var(--primary);
+  border-radius: 2px;
+  min-width: 6px;
+}
+
+.tl-cand.is-clash {
+  border-color: var(--alert);
+}
+
+/*
+  重なっている区間だけを、上下2段を縦に貫いて塗る。
+  斜線にしているのは、下の予約と入力中の枠を隠さずに重ねるため。
+*/
+.tl-clash {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 6px;
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(179, 38, 30, 0.95) 0 3px,
+    transparent 3px 8px
+  );
+  border-left: 2px solid var(--alert);
+  border-right: 2px solid var(--alert);
+}
+
+.tl-axis {
+  position: relative;
+  height: 18px;
+  margin-top: 4px;
+}
+
+.tl-axis-label {
+  position: absolute;
+  transform: translateX(-50%);
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+
+/* 両端は中央揃えにすると帯の外に切れて出る。内側へ寄せる */
+.tl-axis-label.is-first {
+  transform: translateX(0);
+}
+
+.tl-axis-label.is-last {
+  transform: translateX(-100%);
+}
+
+/* 帯の読み方 */
+.legend {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+}
+
+.legend li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8125rem;
+  color: var(--ink-2);
+}
+
+.sw {
+  width: 14px;
+  height: 14px;
+  border-radius: 2px;
+  flex: none;
+}
+
+.sw-booked {
+  background: var(--tl-booked);
+}
+
+.sw-cand {
+  background: #ffffff;
+  border: 2px solid var(--primary);
+}
+
+.sw-clash {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(179, 38, 30, 0.95) 0 2px,
+    transparent 2px 5px
+  );
+  border: 1px solid var(--alert);
+}
+
+/* ---------------- 重なりの詳細 ---------------- */
+
+.clash {
+  background: var(--alert-wash);
+  border: 1px solid var(--alert-line);
+  border-left: 3px solid var(--alert);
+  border-radius: 0 6px 6px 0;
+  padding: 16px;
+}
+
+.clash-head {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 16px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--alert);
+  line-height: 1.6;
+}
+
+.clash-head svg {
+  flex: none;
+}
+
+.clash-count {
+  margin-left: auto;
+  font-size: 0.8125rem;
+  font-weight: 600;
+}
+
+.clash-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.clash-list li {
+  padding: 12px;
+  background: #ffffff;
+  border: 1px solid var(--alert-line);
+  border-radius: 4px;
+}
+
+.clash-time {
+  margin: 0 0 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.clash-who {
+  margin: 0;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.clash-service {
+  margin-left: 12px;
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.clash-span {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--alert);
+}
+
+.clash-dur {
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.clash-hint {
+  margin: 16px 0 0;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+}
+
+.clash-hint-label {
+  margin-right: 8px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-3);
+}
+
+.clash-hint-time {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--alert);
+  margin-right: 4px;
+}
+
+.restore {
+  margin-bottom: 24px;
+}
+
+.restore-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin: 0 0 12px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: var(--alert);
+  line-height: 1.7;
+}
+
+.restore-head svg {
+  flex: none;
+  margin-top: 2px;
+}
+
+/* ---------------- しぼり込み ---------------- */
+
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+.tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--line-input);
+  border-radius: 6px;
+  background: #ffffff;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.tab:hover {
+  background: var(--surface-2);
+}
+
+.tab.is-on {
+  background: var(--primary-wash);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.tab-count {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+.tab.is-on .tab-count {
+  color: var(--primary);
+}
+
+/* ---------------- 一覧 ---------------- */
+
+.ledger {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.day-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  line-height: 1.5;
+}
+
+.day-wd {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.day-rel {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary);
+  background: var(--primary-wash);
+  border: 1px solid var(--primary-line);
+  border-radius: 4px;
+  padding: 0 8px;
+}
+
+/* 見出しから右端まで引く罫。日付のまとまりを線一本で言い切る */
+.day-rule {
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+
+.day-count {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.rows {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.row {
+  display: flex;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+/*
+  左に時刻、右に中身。
+  時刻を縦2段に置いて間を短い縦線でつなぐと、
+  一覧を上から流し読みしたときに「何時から何時まで」が図として入ってくる。
+*/
+.row-time {
+  flex: none;
+  width: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.t-start {
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+}
+
+.t-bar {
+  width: 1px;
+  height: 12px;
+  margin: 4px 0 4px 8px;
+  background: var(--line-2);
+}
+
+.t-end {
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+
+.t-next {
+  font-size: 0.8125rem;
+  color: var(--caution);
+  margin-right: 4px;
+}
+
+.row-body {
+  flex: 1;
+  min-width: 0;
+}
+
+.row-name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+}
+
+.row-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0;
+}
+
+.row-service {
+  font-size: 0.875rem;
+  color: var(--ink-2);
+}
+
+.row-dur {
+  font-size: 0.8125rem;
+  color: var(--ink-3);
+}
+
+/* 打ち消し線や色だけに頼らず、状態は文字でも書く */
+.row-state {
+  display: inline-block;
+  margin: 8px 0 0;
+  padding: 0 8px;
+  border: 1px solid var(--line-2);
+  border-radius: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.row-state.is-off {
+  border-color: var(--alert-line);
+  color: var(--alert);
+  background: var(--alert-wash);
+}
+
+.row-memo {
+  margin: 8px 0 0;
+  padding: 8px 12px;
+  background: var(--surface);
+  border-radius: 4px;
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  line-height: 1.7;
+  /* メモに長い1語（URL等）が入っても、行から飛び出させない */
+  overflow-wrap: anywhere;
+  white-space: pre-wrap;
+}
+
+.row-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/*
+  一覧の中の操作は、押せることが分かる最小限にとどめる。
+  ここに主ボタンと同じ強さの箱が並ぶと、毎日眺める画面としてうるさい。
+*/
+.act {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: var(--ink-2);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.act svg {
+  flex: none;
+}
+
+.act:hover {
+  border-color: var(--line-2);
+  background: var(--surface);
+}
+
+.act.is-done {
+  color: var(--ok);
+  border-color: var(--ok-line);
+  background: var(--ok-wash);
+}
+
+.act.is-danger {
+  color: var(--alert);
+}
+
+.act.is-danger:hover {
+  border-color: var(--alert-line);
+  background: var(--alert-wash);
+}
+
+@media (min-width: 1024px) {
+  /* 指ではなくマウスで押す幅では詰める。当たり判定は上下の余白で確保する */
+  .act {
+    min-height: 36px;
+    padding: 0 10px;
+  }
+
+  .row-actions {
+    margin-top: 8px;
+  }
+}
+
+/* 終わった予約とキャンセルは沈める。ただし読めなくはしない */
+.row.is-past .row-name,
+.row.is-cancelled .row-name {
+  color: var(--ink-2);
+}
+
+.row.is-past .t-start,
+.row.is-cancelled .t-start {
+  color: var(--ink-3);
+}
+
+.row.is-cancelled .t-start,
+.row.is-cancelled .t-end,
+.row.is-cancelled .row-name {
+  text-decoration: line-through;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--ink-3);
+}
+
+.empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 40px 16px;
+  background: var(--surface);
+  border-radius: 6px;
+  color: var(--ink-3);
+  font-size: 0.9375rem;
+  text-align: center;
+}
+
+/* ---------------- 脚 ---------------- */
+
+.foot {
+  margin-top: 40px;
+  padding-top: 24px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-3);
+  font-size: 0.8125rem;
+  line-height: 1.8;
+}
+
+.foot p {
+  margin: 0;
+}

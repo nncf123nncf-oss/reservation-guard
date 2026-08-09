@@ -1,0 +1,112 @@
+/*
+  見た目の考え方
+  ──────────────
+  小さな店を一人で回している人が、電話を受けながら開く画面。
+  「きれいに見せる」より「見間違えない」を優先している。
+
+  1. 白地。装飾の面を作らず、区切りは1本の細い線と余白だけで示す
+  2. 色は3語しか話さない。濃紺＝確定した予約 / 赤＝重なっている / 緑＝うまくいった
+  3. 状態は必ず「色 + 形 + 文字」の3つで伝える。色が見えづらくても意味が届くようにする
+*/
+
+:root {
+  --bg: #ffffff;
+  --surface: #f7f8fa;
+  --surface-2: #f2f5f9;
+
+  /* 本文 15.9:1 / 副文 7.5:1 / 補助文 5.0:1（いずれも白地に対して） */
+  --ink: #1a2233;
+  --ink-2: #4a5568;
+  --ink-3: #667085;
+
+  --line: #e3e8ef;
+  --line-2: #c9d1dc;
+  /* 入力欄と副ボタンの枠。操作できる部品の枠は3:1が下限なので、罫線より濃くする */
+  --line-input: #7d8a9c;
+
+  --primary: #1f3a5f;
+  --primary-hover: #16304f;
+  --primary-active: #102540;
+  --primary-wash: #eef3f9;
+  --primary-line: #c7d6e8;
+
+  /* 重なりの赤。この色は「別の予約と当たっている」ときにしか使わない */
+  --alert: #b3261e;
+  --alert-wash: #fdf2f1;
+  --alert-line: #f3c7c2;
+
+  /* 注意（日をまたぐ・終了した）。赤ほど強くないが読み流してほしくないもの */
+  --caution: #9a5b00;
+
+  --ok: #17703f;
+  --ok-wash: #eff7f1;
+  --ok-line: #bbdfc8;
+
+  /* 時間帯の帯 */
+  --tl-booked: #2c4a73;
+  --tl-tick: #dde4ec;
+  --tl-tick-major: #c9d1dc;
+
+  font-family: system-ui, -apple-system, 'Segoe UI', 'Hiragino Kaku Gothic ProN',
+    'Noto Sans JP', Meiryo, sans-serif;
+  /* palt は和文の字間を詰める。長い見出しが1行に収まりやすくなる */
+  font-feature-settings: 'palt' 1;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+
+  /*
+    日時の入力はブラウザが描くカレンダーをそのまま使う。
+    light に固定しないと、端末を暗い設定にしている人だけ
+    そのカレンダーが黒く落ちて、白地の画面から浮いてしまう
+  */
+  color-scheme: light;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg);
+}
+
+/*
+  スマホで使う前提の下限
+  - 入力欄の文字を16px未満にすると、iOSのSafariが勝手に拡大し、
+    そのあと画面が横にずれたままになる
+  - 押せるものは高さ44px以上にする
+*/
+input,
+textarea,
+select,
+button {
+  font-family: inherit;
+  color: inherit;
+}
+
+input,
+textarea {
+  font-size: 16px;
+}
+
+button {
+  min-height: 44px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+/* 数字は幅を揃える。時刻や件数が1桁変わるたびに行が動くのを防ぐ */
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
