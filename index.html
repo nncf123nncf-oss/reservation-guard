@@ -9,9 +9,44 @@
       content="登録時にダブルブッキングを知らせる、個人事業主向けの予約確認ツール。"
     />
     <title>予約チェック — 予約が重なる前に確認できます</title>
+    <style>
+  /* --- 運営者表記フッタ（全Day共通・Day037と同一仕様） -------------------
+     ページごとに配色が違うため、ページ側のCSS変数に依存せず自己完結させる。
+     ツール本体のスタイルには触れない。印刷時は表示しない。 */
+  .mw-footer {
+    box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 24px 0 0;
+    padding: 16px;
+    background: #F7F7F8;
+    border: 1px solid #D8D8DC;
+    border-radius: 6px;
+    color: #3A3A3E;
+    font-family: system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 1.7;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+  .mw-footer p { margin: 0 0 6px; padding: 0; color: #3A3A3E; font-size: 12px; font-weight: 400; line-height: 1.7; text-align: left; }
+  .mw-footer p:last-child { margin-bottom: 0; }
+  .mw-footer a { color: #0B5AA6; }
+  .mw-footer.mw-footer--page { width: calc(100% - 32px); max-width: 720px; margin: 24px auto; }
+  @media print { .mw-footer { display: none; } }
+    </style>
   </head>
   <body>
     <div id="root"></div>
+    <footer class="mw-footer mw-footer--page">
+      <p>このツールについて: 登録時にダブルブッキングを知らせる、個人事業主向けの予約確認ツールです。</p>
+      <p>みちAIワークス（MICHI AI WORKS）／代表 田中　泉</p>
+      <p>運営: <a href="https://michi-portfolio.vercel.app/" rel="noopener">みちAIワークス 公式サイト</a>（https://michi-portfolio.vercel.app/ ）／ お問い合わせ: <a href="mailto:nncf123nncf@gmail.com">nncf123nncf@gmail.com</a></p>
+      <p>このツールはブラウザの中だけで動きます。入力した内容はこのブラウザの中にのみ保存され、外部への送信・収集は一切行いません。</p>
+      <p>ログイン・会員登録・パスワードの入力を求めることはありません。</p>
+      <noscript><p>このツールの利用にはJavaScriptの有効化が必要です。</p></noscript>
+    </footer>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
